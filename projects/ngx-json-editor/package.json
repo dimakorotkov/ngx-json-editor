@@ -1,6 +1,7 @@
 {
-  "name": "ngx-json-editor",
-  "version": "0.0.1",
+  "name": "@dimakorotkov/ngx-json-editor",
+  "version": "1.0.0",
+  "description": "Angular library for json-editor",
   "peerDependencies": {
     "@angular/common": "^13.1.0",
     "@angular/core": "^13.1.0",
@@ -8,5 +9,19 @@
   },
   "dependencies": {
     "tslib": "^2.3.0"
+  },
+  "keywords": [
+    "json",
+    "angular"
+  ],
+  "homepage": "https://github.com/dimakorotkov/ngx-json-editor#readme",
+  "bugs": {
+    "url": "https://github.com/dimakorotkov/ngx-json-editor/issues"
+  },
+  "license": "MIT",
+  "author": "Dmitriy Korotkov",
+  "funding": {
+    "type" : "patreon",
+    "url" : "https://www.patreon.com/dimakorotkov"
   }
 }

@@ -1,24 +1,134 @@
-# NgxJsonEditor
+# Ngx Json Editor
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.0.
+<span class="badge-patreon"><a href="https://www.patreon.com/dimakorotkov" title="Donate to this project using Patreon"><img src="https://img.shields.io/badge/patreon-donate-yellow.svg" alt="Patreon donate button" /></a></span>
+<span><a href="https://buymeacoff.ee/NXR1ZkP" title="Donate to this project using Buy Me A Coffee" rel="nofollow"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button"></a></span>
 
-## Code scaffolding
+Ngx Json Editor (wrapper for [json-editor](https://github.com/json-editor/json-editor)).
+It takes a JSON Schema and uses it to generate an HTML form.
 
-Run `ng generate component component-name --project ngx-json-editor` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ngx-json-editor`.
-> Note: Don't forget to add `--project ngx-json-editor` or else it will be added to the default project in your `angular.json` file. 
+Tested under Angular 13.
 
-## Build
+## Installation
 
-Run `ng build ngx-json-editor` to build the project. The build artifacts will be stored in the `dist/` directory.
+To install this library with npm, run below commands:
 
-## Publishing
+$ npm install --save-dev @types/json-editor
 
-After building your library with `ng build ngx-json-editor`, go to the dist folder `cd dist/ngx-json-editor` and run `npm publish`.
+$ npm install --save @json-editor/json-editor @dimakorotkov/ngx-json-editor
 
-## Running unit tests
 
-Run `ng test ngx-json-editor` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Example:
 
-## Further help
+```html
+<div [formGroup]="formGroup">
+  <dimakorotkov-ngx-json-editor [options]="options" formControlName="jsonControl">
+  </dimakorotkov-ngx-json-editor>
+</div>
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Usage
+
+### Configuration
+
+Include json-editor script in angular.json
+```json
+  "scripts": [
+    ...,
+    "@json-editor/json-editor/dist/jsoneditor.js"
+  ],
+```
+
+Import module
+
+```ts
+import { NgxJsonEditorModule } from '@dimakorotkov/ngx-json-editor';
+import { ReactiveFormsModule } from '@angular/forms';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    ....,
+    ReactiveFormsModule,
+    NgxJsonEditorModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+Setup your component
+
+```ts
+import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+
+@Component({
+  selector: 'app-root',
+  template: `<div [formGroup]="formGroup">
+    <dimakorotkov-ngx-json-editor [options]="options" formControlName="jsonControl">
+    </dimakorotkov-ngx-json-editor>
+  </div>`
+})
+export class AppComponent {
+
+  formGroup = new FormGroup({
+    'jsonControl': new FormControl()
+  })
+
+  //options from the json-editor demo
+  options: JSONEditorOptions<any> = {
+    schema: {
+      type: "object",
+      title: "Car",
+      properties: {
+        make: {
+          type: "string",
+          enum: [
+            "Toyota",
+            "BMW",
+            "Honda",
+            "Ford",
+            "Chevy",
+            "VW"
+          ]
+        },
+        model: {
+          type: "string"
+        },
+        year: {
+          type: "integer",
+          enum: [
+            1995,1996,1997,1998,1999,
+            2000,2001,2002,2003,2004,
+            2005,2006,2007,2008,2009,
+            2010,2011,2012,2013,2014
+          ],
+          default: 2008
+        },
+        safety: {
+          type: "integer",
+          format: "rating",
+          maximum: "5",
+          exclusiveMaximum: false,
+          readonly: false
+        }
+      }
+    }
+  };
+
+  constructor() {
+    //uncomment to logging any json changes
+    /*this.formGroup.valueChanges.subscribe(() => {
+      console.log(this.formGroup.value.jsonControl);
+    })*/
+  }
+}
+```
+
+### Editor options
+
+You can use all the [configuration options](https://github.com/json-editor/json-editor#options) from the json-editor.
+
+## License - MIT
