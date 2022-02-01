@@ -1,10 +1,10 @@
 {
   "name": "@dimakorotkov/ngx-json-editor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Angular library for json-editor",
   "peerDependencies": {
-    "@angular/common": "^13.1.0",
-    "@angular/core": "^13.1.0",
+    "@angular/common": "*",
+    "@angular/core": "*",
     "@json-editor/json-editor": "^2.6.1"
   },
   "dependencies": {
